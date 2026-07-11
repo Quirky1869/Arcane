@@ -1,15 +1,18 @@
 #!/bin/bash
 #
 # clone-repos.sh
-# Clone une liste de dépôts Git dans le dossier parent (~/docker)
+# 1. Clone une liste de dépôts Git externes dans le dossier parent (~/docker)
+# 2. Copie les projets locaux (~/docker/Arcane/projects/*) vers ~/docker
+#    pour qu'Arcane puisse les détecter
 #
 # Usage : ./clone-repos.sh
-# Placer ce script dans ~/docker/scripts/ par exemple, il clonera dans ~/docker/
+# Placer ce script dans ~/docker/scripts/ (ou ~/docker/Arcane/), il travaille
+# toujours par rapport à ~/docker en tant que dossier parent.
 
 set -euo pipefail
 
 # ---------------------------------------------------------
-# Liste des dépôts à cloner (ajoute/retire une ligne ici)
+# Liste des dépôts externes à cloner (ajoute/retire une ligne ici)
 # ---------------------------------------------------------
 REPOS=(
     "git@github.com:Quirky1869/Purple-Spells.git"
@@ -21,12 +24,16 @@ REPOS=(
 # ---------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEST_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECTS_DIR="$DEST_DIR/Arcane/projects"
 
-echo "Destination des clones : $DEST_DIR"
+echo "Destination : $DEST_DIR"
 echo ""
 
+# ---------------------------------------------------------
+# 1. Clone des repos externes
+# ---------------------------------------------------------
+echo "=== Clonage des dépôts externes ==="
 for repo in "${REPOS[@]}"; do
-    # Extrait le nom du dossier à partir de l'URL (enlève .git à la fin)
     repo_name="$(basename "$repo" .git)"
     target_path="$DEST_DIR/$repo_name"
 
@@ -44,4 +51,37 @@ for repo in "${REPOS[@]}"; do
     echo ""
 done
 
-echo "Terminé."
+# ---------------------------------------------------------
+# 2. Synchronisation des projets locaux (it-tools, etc.)
+# ---------------------------------------------------------
+echo "=== Synchronisation des projets locaux (Arcane/projects) ==="
+
+if [ -d "$PROJECTS_DIR" ]; then
+    shopt -s nullglob
+    local_projects=("$PROJECTS_DIR"/*/)
+
+    if [ ${#local_projects[@]} -eq 0 ]; then
+        echo "Aucun projet local trouvé dans $PROJECTS_DIR."
+    else
+        for dir in "${local_projects[@]}"; do
+            name="$(basename "$dir")"
+            target="$DEST_DIR/$name"
+
+            echo "🔄 Synchronisation de $name..."
+
+            if command -v rsync >/dev/null 2>&1; then
+                rsync -a --delete "$dir" "$target/"
+            else
+                rm -rf "$target"
+                cp -r "$dir" "$target"
+            fi
+
+            echo "✅ $name synchronisé vers $target"
+        done
+    fi
+else
+    echo "Aucun dossier $PROJECTS_DIR trouvé, étape ignorée."
+fi
+
+echo ""
+echo "Terminé. Rafraîchis la page Projects dans Arcane si besoin."
