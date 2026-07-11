@@ -1,0 +1,11 @@
+services:
+  ffmpeg-web:
+    # Build direct depuis le dépôt GitHub, pas besoin de cloner à la main
+    build:
+      context: https://github.com/dinoosauro/ffmpeg-web.git
+    container_name: ffmpeg-web
+    ports:
+      - "9831:3000"   # HTTP -> http://localhost:9831
+      # - "3443:443" # Décommenter si tu actives le HTTPS (voir README du projet,
+                      # nécessite d'éditer Dockerfile/nginx.conf dans un clone local)
+    restart: unless-stopped
