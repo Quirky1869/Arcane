@@ -27,6 +27,8 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 ```bash
 git clone git@github.com:Quirky1869/Arcane.git
 cd Arcane
+chmod u+x clone-repos-docker.sh
+./clone-repos-docker.sh
 ```
 
 ### 2. Créer le fichier d'environnement
