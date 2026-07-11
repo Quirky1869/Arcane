@@ -105,7 +105,9 @@ Ou directement depuis l'interface Arcane via le bouton "Update available" quand 
 
 ## scripts/clone-repos-docker.sh
 
-Ce script permet de cloner automatiquement tous mes projets Docker en une seule commande, pratique pour redéployer rapidement toute la stack sur une nouvelle machine.
+Ce script permet de cloner automatiquement tous mes projets Docker en une seule commande, pratique pour redéployer rapidement toute la stack sur une nouvelle machine
+
+Pour les projets sans repo particulier des docker-compose.yml sont créer dans Arcane/projects puis sont copier dans ~/docker avec `clone-repos-docker.sh`
 
 ### Comment ça marche
 
@@ -114,6 +116,7 @@ Ce script permet de cloner automatiquement tous mes projets Docker en une seule 
 - Le nom du dossier créé pour chaque clone est déduit automatiquement de l'URL du dépôt (ex : `Purple-Spells.git` → dossier `Purple-Spells`).
 - Si un dossier existe déjà, le script le **saute automatiquement** pour ne rien écraser.
 - Compatible avec les URLs en SSH (`git@github.com:...`) et en HTTPS (`https://github.com/...`).
+- Le script copie aussi le contenu de Arcane/projects dans ~/docker
 
 ### Ajouter un nouveau dépôt
 
