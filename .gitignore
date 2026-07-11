@@ -1,2 +1,6 @@
 .env
 **/.env
+projects/heimdall/heimdall/config/log/
+projects/heimdall/heimdall/config/www/logs/
+projects/heimdall/heimdall/config/keys/
+projects/sqlite-browser/config/ssl/

@@ -1,0 +1,1 @@
+Pour que les base de donnes soit vu sur le site web de sqlite browser il faut la copier dans ./config/Desktop
