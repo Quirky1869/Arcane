@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  drawio:
+    image: jgraph/drawio:latest
+    container_name: drawio
+    restart: unless-stopped
+    ports:
+      - "5462:8080"
+      # - "8443:8443"   # décommente si tu veux le HTTPS interne du conteneur
+    environment:
+      - TZ=Europe/Paris
+      # - DRAWIO_BASE_URL=https://drawio.tondomaine.fr   # utile si derrière reverse proxy
+    volumes:
+      - drawio_data:/var/lib/drawio  # pas de persistance de dessins par défaut (stockage géré côté client/export), mais garde le dossier pour plugins/config
+
+volumes:
+  drawio_data:
