@@ -1,7 +1,30 @@
+### Sans Traefik ###
+#services:
+#  sqlitebrowser:
+#    image: lscr.io/linuxserver/sqlitebrowser:latest
+#    container_name: sqlitebrowser
+#    security_opt:
+#      - seccomp:unconfined
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=Europe/Paris
+#    volumes:
+#      - ./config:/config
+#      - ./data:/data
+#    ports:
+#      - '3050:3000'
+#      - '3051:3001'
+#    shm_size: "1gb"
+#    restart: unless-stopped
+
+### Avec Traefik ###
 services:
   sqlitebrowser:
     image: lscr.io/linuxserver/sqlitebrowser:latest
     container_name: sqlitebrowser
+    networks:
+      - traefik-net
     security_opt:
       - seccomp:unconfined
     environment:
@@ -12,7 +35,17 @@ services:
       - ./config:/config
       - ./data:/data
     ports:
-      - '3050:3000'
-      - '3051:3001'
+      - '3050:3000'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+      - '3051:3001'   # accès direct HTTPS de secours
     shm_size: "1gb"
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqlitebrowser.rule=Host(`sqlitebrowser.lab`)"
+      - "traefik.http.services.sqlitebrowser.loadbalancer.server.port=3000"
+
+networks:
+  traefik-net:
+    external: true
+
+# Avec traefik aller sur https://sqlitebrowser.lab:3051

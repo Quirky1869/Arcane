@@ -1,6 +1,16 @@
 .env
 **/.env
+
+# Heimdall
 projects/heimdall/heimdall/config/log/
 projects/heimdall/heimdall/config/www/logs/
 projects/heimdall/heimdall/config/keys/
-projects/sqlite-browser/config/ssl/
+projects/heimdall/heimdall/config/nginx/dhparams.pem
+
+# sqlite-browser
+projects/sqlite-browser/config/
+projects/sqlite-browser/data/
+
+# beszel
+projects/beszel/beszel_data/
+projects/beszel/beszel_socket/
