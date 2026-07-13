@@ -155,6 +155,7 @@ volumes:
 127.0.0.1   dozzle.lab
 127.0.0.1   auth.lab
 127.0.0.1   rackula.lab
+127.0.0.1   windows.lab # dockur
 ...
 ```
 
