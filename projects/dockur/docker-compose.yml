@@ -23,7 +23,7 @@
 #      - 3389:3389/tcp
 #    volumes:
 #      - ./windows:/storage
-#    restart: always
+#    restart: unless-stopped
 #    stop_grace_period: 2m
 
 ### Avec Traefik ###
@@ -55,7 +55,7 @@ services:
       - 3389:3389/tcp   # RDP, toujours en accès direct, pas de routage Traefik possible
     volumes:
       - ./windows:/storage
-    restart: always
+    restart: unless-stopped
     stop_grace_period: 2m
     labels:
       - "traefik.enable=true"
