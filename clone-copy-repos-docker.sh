@@ -67,7 +67,7 @@ if [ -d "$PROJECTS_DIR" ]; then
             name="$(basename "$dir")"
             target="$DEST_DIR/$name"
 
-            echo "🔄 Synchronisation de $name..."
+            echo "Synchronisation de $name..."
 
             if command -v rsync >/dev/null 2>&1; then
                 rsync -a --delete "$dir" "$target/"

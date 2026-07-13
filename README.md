@@ -1,10 +1,10 @@
 # Arcane
 
-![Arcane](./_images/arcane.png)
+![Arcane](./_images/arcane.png)  
 
 # Docker Stack
 
-Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, backup-calculator, etc.), gérées et déployées via [Arcane](https://github.com/getarcaneapp/arcane)
+Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, backup-calculator, it-tools, sqlite-browser etc.), gérées et déployées via [Arcane](https://getarcane.app/)  
 
 ## Structure
 
@@ -12,10 +12,11 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 ~/docker/
 ├── Arcane/
 │   ├── _images/
+│   ├── projects/
 │   ├── docker-compose.yml
 │   ├── .env              # non versionné, contient les secrets
 │   ├── .env.example
-│   ├── clone-repos-docker.sh
+│   ├── clone-copy-repos-docker.sh
 │   ├── LICENSE
 │   └── README.md
 ```
@@ -27,8 +28,8 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 ```bash
 git clone git@github.com:Quirky1869/Arcane.git
 cd Arcane
-chmod u+x clone-repos-docker.sh
-./clone-repos-docker.sh
+chmod u+x clone-copy-repos-docker.sh
+./clone-copy-repos-docker.sh
 ```
 
 ### 2. Créer le fichier d'environnement
@@ -59,15 +60,19 @@ sudo docker-compose up -d
 
 ### 5. Accéder à l'interface
 
- [http://localhost:3552](http://127.0.0.1:3552)
+Sans Traefik :  
+[localhost:3552](http://127.0.0.1:3552)  
 
-**Identifiants par défaut :**
+Avec Traefik :  
+[arcane.lab](http://arcane.lab)  
+
+**Identifiants par défaut :**  
 - Utilisateur : `arcane`
 - Mot de passe : `arcane-admin`
 
-⚠️ **Il te sera demandé de changer ce mot de passe immédiatement à la première connexion.** Ne le laisse pas par défaut.
+⚠️ **Il te sera demandé de changer ce mot de passe immédiatement à la première connexion.** Ne le laisse pas par défaut.  
 
-## docker-compose.yml
+## docker-compose.yml d'Arcane sans Traefik
 
 ```yaml
 services:
@@ -91,25 +96,80 @@ volumes:
   arcane-data:
 ```
 
+## docker-compose.yml d'Arcane avec Traefik
+
+```yaml
+services:
+  arcane:
+    image: ghcr.io/getarcaneapp/arcane:latest
+    container_name: arcane
+    networks:
+      - traefik-net
+    ports:
+      - '3552:3552'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - arcane-data:/app/data
+      - /home/jason/docker:/app/data/projects # Changer l'utilisateur "jason" si besoin
+    environment:
+      - APP_URL=http://arcane.lab
+      - PUID=1000
+      - PGID=1000
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.arcane.rule=Host(`arcane.lab`)"
+      - "traefik.http.services.arcane.loadbalancer.server.port=3552"
+
+networks:
+  traefik-net:
+    external: true
+
+volumes:
+  arcane-data:
+```
+
 >  Le volume `/home/jason/docker:/app/data/projects` doit pointer vers le dossier contenant tous tes projets Docker (celui-ci). Adapte le chemin à ton propre nom d'utilisateur et à l'emplacement réel de ton dossier `~/docker`
+
+## Exemple /etc/hosts 
+> Equivalent Windows :  C:\Windows\System32\drivers\etc\hosts  
+```bash
+# Traefik
+127.0.0.1   it-tools.lab
+127.0.0.1   convertx.lab
+127.0.0.1   drawio.lab
+127.0.0.1   excalidraw.lab
+127.0.0.1   grafana.lab
+127.0.0.1   heimdall.lab
+127.0.0.1   stirling.lab
+127.0.0.1   backup-calc.lab
+127.0.0.1   arcane.lab
+127.0.0.1   purple-spells.lab
+127.0.0.1   beszel.lab
+127.0.0.1   ffmpeg-web.lab
+127.0.0.1   sqlitebrowser.lab
+...
+```
 
 ## Gérer les mises à jour
 
 ```bash
-cd Arcane
-sudo docker-compose pull
-sudo docker-compose up -d
+cd Arcane  
+sudo docker-compose pull  
+sudo docker-compose up -d  
 ```
 
-Ou directement depuis l'interface Arcane via le bouton "Update available" quand une nouvelle version est disponible
+Ou directement depuis l'interface Arcane via le bouton "Update available" quand une nouvelle version est disponible  
 
 ---
 
-## scripts/clone-repos-docker.sh
+## clone-copy-repos-docker.sh
 
 Ce script permet de cloner automatiquement tous mes projets Docker en une seule commande, pratique pour redéployer rapidement toute la stack sur une nouvelle machine
 
-Pour les projets sans repo particulier des docker-compose.yml sont créer dans Arcane/projects puis sont copier dans ~/docker avec `clone-repos-docker.sh`
+Pour les projets sans repo particulier des docker-compose.yml sont créer dans Arcane/projects puis sont copier dans ~/docker avec `clone-copy-repos-docker.sh`
 
 ### Comment ça marche
 
@@ -136,8 +196,8 @@ REPOS=(
 
 ```bash
 cd ~/docker/
-chmmod u+x clone-repos-docker.sh
-./clone-repos-docker.sh
+chmmod u+x clone-copy-repos-docker.sh
+./clone-copy-repos-docker.sh
 ```
 
 Tous les dépôts listés seront clonés directement dans `~/docker/`
