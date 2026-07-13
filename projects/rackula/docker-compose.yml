@@ -4,7 +4,7 @@
 #    image: ghcr.io/rackulalives/rackula:persist
 #    container_name: rackula
 #    ports:
-#      - "8357:8080"
+#      - "8754:8080"
 #    environment:
 #      - API_HOST=rackula-api
 #      - API_PORT=3001
@@ -44,7 +44,7 @@ services:
       - default
       - traefik-net
     ports:
-      - "8357:8080"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+      - "8754:8080"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
     environment:
       - API_HOST=rackula-api
       - API_PORT=3001
@@ -67,6 +67,7 @@ services:
       - /etc/nginx/conf.d:size=1M,uid=101,gid=101
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=traefik-net"
       - "traefik.http.routers.rackula.rule=Host(`rackula.lab`)"
       - "traefik.http.services.rackula.loadbalancer.server.port=8080"
 
