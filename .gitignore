@@ -14,3 +14,8 @@ projects/sqlite-browser/data/
 # beszel
 projects/beszel/beszel_data/
 projects/beszel/beszel_socket/
+
+# Authelia
+projects/authelia/secrets/jwt_secret
+projects/authelia/secrets/session_secret
+projects/authelia/secrets/storage_key

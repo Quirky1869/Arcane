@@ -1,0 +1,11 @@
+---
+users:
+  jason:    # A changer
+    disabled: false
+    displayname: 'jason'   # A changer
+    password: 'A_REMPLACE_PAR_LE_HASH_GENERE'   # voir commande ci-dessous pour le générer
+    email: 'jason@lab.local' # A changer
+    groups:
+      - 'admins'
+
+#docker run --rm authelia/authelia:latest authelia crypto hash generate argon2 --password 'MOT_DE_PASSE_A_CHANGER'

@@ -152,6 +152,7 @@ volumes:
 127.0.0.1   beszel.lab
 127.0.0.1   ffmpeg-web.lab
 127.0.0.1   sqlitebrowser.lab
+127.0.0.1   dozzle.lab
 ...
 ```
 

@@ -1,0 +1,38 @@
+services:
+  authelia:
+    image: authelia/authelia:latest
+    container_name: authelia
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    volumes:
+      - ./config:/config
+      - ./secrets:/secrets:ro
+    environment:
+      - TZ=Europe/Paris
+      - AUTHELIA_SESSION_SECRET_FILE=/secrets/session_secret
+      - AUTHELIA_JWT_SECRET_FILE=/secrets/jwt_secret
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/secrets/storage_key
+    ports:
+      - '9091:9091'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.authelia.rule=Host(`auth.lab`)"
+      - "traefik.http.services.authelia.loadbalancer.server.port=9091"
+      ## Middleware ForwardAuth réutilisable sur n'importe quel autre service
+      - "traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/authz/forward-auth"
+      - "traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true"
+      - "traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email"
+
+  authelia-redis:
+    image: redis:7-alpine
+    container_name: authelia-redis
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    volumes:
+      - ./redis:/data
+
+networks:
+  traefik-net:
+    external: true
