@@ -18,8 +18,8 @@
 #    restart: unless-stopped
 #volumes:
 #  arcane-data:
-
-### Avec Traefik ###
+#
+## Avec Traefik ###
 services:
   arcane:
     image: ghcr.io/getarcaneapp/arcane:latest

@@ -57,6 +57,9 @@ JWT_SECRET=<résultat de openssl rand -hex 32>
 ```bash
 sudo docker-compose up -d
 ```
+> Si vous utiliser les containers (dont Arcane) avec Traefik, merci de démmarer le container "Traefik" en premier pour ne pas avoir l'erreur :
+> network traefik-net declared as external, but could not be found
+
 
 ### 5. Accéder à l'interface
 
