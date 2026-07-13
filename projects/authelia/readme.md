@@ -3,7 +3,9 @@
 ## Afin de lancer authelia il faut générer les secrets nécessaire avant le lancement
 
 ```bash
-# Pour consctruire les dossiers
+# Pour construire les dossiers
+mkdir ~/docker/Arcane/projects/authelia/redis/
+mkdir ~/docker/Arcane/projects/authelia/secrets/
 touch ~/docker/Arcane/projects/authelia/secrets/jwt_secret
 touch ~/docker/Arcane/projects/authelia/secrets/session_secret
 touch ~/docker/Arcane/projects/authelia/secrets/storage_key
@@ -20,3 +22,5 @@ openssl rand -hex 64 | tr -d '\n' > ~/docker/Arcane/projects/authelia/secrets/st
 docker run --rm authelia/authelia:latest authelia crypto hash generate argon2 --password 'MOT_DE_PASSE_A_CHANGER'
 
 Le hash généré sera à mettre dans `config/users_database.yml`
+
+### Authelia est non fonctionnelle en l'état
