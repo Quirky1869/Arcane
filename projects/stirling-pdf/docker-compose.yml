@@ -1,10 +1,33 @@
+### Sans Traefik ###
+#services:
+#  stirling-pdf:
+#    image: stirlingtools/stirling-pdf:latest
+#    container_name: stirling-pdf
+#    restart: unless-stopped
+#    ports:
+#      - '2255:8080'
+#    volumes:
+#      - ./data/tessdata:/usr/share/tessdata
+#      - ./data/configs:/configs
+#      - ./data/logs:/logs
+#      - ./data/customFiles:/customFiles
+#      - ./data/pipeline:/pipeline
+#    environment:
+#      - SECURITY_ENABLELOGIN=true
+#      - LANGS=fr_FR,en_GB
+#      - SYSTEM_DEFAULTLOCALE=fr-FR
+#      - SYSTEM_MAXFILESIZE=100
+
+### Avec Traefik ###
 services:
   stirling-pdf:
     image: stirlingtools/stirling-pdf:latest
     container_name: stirling-pdf
     restart: unless-stopped
+    networks:
+      - traefik-net
     ports:
-      - '2255:8080'
+      - '2255:8080'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
     volumes:
       - ./data/tessdata:/usr/share/tessdata
       - ./data/configs:/configs
@@ -16,3 +39,11 @@ services:
       - LANGS=fr_FR,en_GB
       - SYSTEM_DEFAULTLOCALE=fr-FR
       - SYSTEM_MAXFILESIZE=100
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stirling-pdf.rule=Host(`stirling.lab`)"
+      - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
+
+networks:
+  traefik-net:
+    external: true
