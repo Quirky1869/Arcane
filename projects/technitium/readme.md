@@ -53,8 +53,8 @@ cat /etc/resolv.conf
 
 Si vous avez modifié votre `/etc/hosts`, vous pouvez maintenant commenter ou supprimer les lignes comme :
 ```
-127.0.0.1   convertx.lab
-127.0.0.1   dozzle.lab
+#127.0.0.1   convertx.lab
+#127.0.0.1   dozzle.lab
 ```
 
 Une fois cela fait ouvrez votre navigateur préféré en privée (pour ne pas avoir de cache) et testé si les noms de comaine .lab fonctionnent :
