@@ -1,0 +1,46 @@
+### Sans Traefik ###
+#services:
+#  technitium:
+#    image: technitium/dns-server:latest
+#    container_name: technitium
+#    hostname: dns-server
+#    restart: unless-stopped
+#    ports:
+#      - "53:53/udp"     # Service DNS (le vrai coeur)
+#      - "53:53/tcp"
+#      - "5380:5380/tcp" # Interface web d'administration
+#    environment:
+#      - DNS_SERVER_DOMAIN=dns-server
+#      - TZ=Europe/Paris
+#    volumes:
+#      - ./config:/etc/dns
+
+### Avec Traefik ###
+# Note : le service DNS lui-même (port 53) NE PEUT PAS passer par Traefik
+# (ce n'est pas du HTTP). Seule l'interface web d'admin (5380) peut être routée.
+services:
+  technitium:
+    image: technitium/dns-server:latest
+    container_name: technitium
+    hostname: dns-server
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    ports:
+      - "53:53/udp"      # Service DNS, accès direct obligatoire, pas de Traefik possible
+      - "53:53/tcp"
+      - "5380:5380/tcp"  # Interface web, accès direct de secours en attendant Traefik/DNS
+    environment:
+      - DNS_SERVER_DOMAIN=dns-server
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/etc/dns
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-net"
+      - "traefik.http.routers.technitium.rule=Host(`technitium.lab`)"
+      - "traefik.http.services.technitium.loadbalancer.server.port=5380"
+
+networks:
+  traefik-net:
+    external: true

@@ -1,0 +1,24 @@
+$ORIGIN lab.
+@                     900       IN  SOA           dns-server. hostadmin 25 900 300 604800 900
+@                     14400     IN  NS            dns-server.
+arcane                3600      IN  A             192.168.1.124
+backup-calc           3600      IN  A             192.168.1.124
+beszel                3600      IN  A             192.168.1.124
+convertx              3600      IN  A             192.168.1.124
+dozzle                3600      IN  A             192.168.1.124
+drawio                3600      IN  A             192.168.1.124
+excalidraw            3600      IN  A             192.168.1.124
+ffmpeg-web            3600      IN  A             192.168.1.124
+grafana               3600      IN  A             192.168.1.124
+heimdall              3600      IN  A             192.168.1.124
+it-tools              3600      IN  A             192.168.1.124
+macos                 3600      IN  A             192.168.1.124
+netbox                3600      IN  A             192.168.1.124
+purple-spells         3600      IN  A             192.168.1.124
+rackula               3600      IN  A             192.168.1.124
+sqlitebrowser         3600      IN  A             192.168.1.124
+stirling              3600      IN  A             192.168.1.124
+technitium            3600      IN  A             192.168.1.124
+traefik               3600      IN  A             192.168.1.124
+windows               3600      IN  A             192.168.1.124
+yt-dlp                3600      IN  A             192.168.1.124

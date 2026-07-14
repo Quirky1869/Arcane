@@ -142,26 +142,26 @@ volumes:
 > Equivalent Windows :  C:\Windows\System32\drivers\etc\hosts  
 ```bash
 # Traefik
-127.0.0.1   it-tools.lab
-127.0.0.1   convertx.lab
-127.0.0.1   drawio.lab
-127.0.0.1   excalidraw.lab
-127.0.0.1   grafana.lab
-127.0.0.1   heimdall.lab
-127.0.0.1   stirling.lab
-127.0.0.1   backup-calc.lab
-127.0.0.1   arcane.lab
-127.0.0.1   purple-spells.lab
-127.0.0.1   beszel.lab
-127.0.0.1   ffmpeg-web.lab
-127.0.0.1   sqlitebrowser.lab
-127.0.0.1   dozzle.lab
-127.0.0.1   auth.lab
-127.0.0.1   rackula.lab
-127.0.0.1   windows.lab # dockur
-127.0.0.1   macos.lab # dockur
-127.0.0.1   yt-dlp.lab
-127.0.0.1   netbox.lab
+#127.0.0.1   arcane.lab
+#127.0.0.1   backup-calc.lab
+#127.0.0.1   beszel.lab
+#127.0.0.1   convertx.lab
+#127.0.0.1   dozzle.lab
+#127.0.0.1   drawio.lab
+#127.0.0.1   excalidraw.lab
+#127.0.0.1   ffmpeg-web.lab
+#127.0.0.1   grafana.lab
+#127.0.0.1   heimdall.lab
+#127.0.0.1   it-tools.lab
+#127.0.0.1   macos.lab # dockur
+#127.0.0.1   netbox.lab
+#127.0.0.1   purple-spells.lab
+#127.0.0.1   rackula.lab
+#127.0.0.1   sqlitebrowser.lab
+#127.0.0.1   stirling.lab
+#127.0.0.1   traefik.lab
+#127.0.0.1   windows.lab # dockur
+#127.0.0.1   yt-dlp.lab
 ...
 ```
 
@@ -223,4 +223,5 @@ Voici les containers concernés :
 - Grafana
 - Netbox
 - Rackula
+- Technitium
 - Yt-dlp
