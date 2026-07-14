@@ -1,4 +1,4 @@
-### Sans Traefik ###
+29~### Sans Traefik ###
 #services:
 #  arcane:
 #    image: ghcr.io/getarcaneapp/arcane:latest
@@ -31,11 +31,11 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - arcane-data:/app/data
-      - /home/micka/docker:/app/data/projects # Changer l'utilisateur "jason" si besoin
+      - /home/jason/docker:/app/data/projects # Changer l'utilisateur "jason" si besoin
     environment:
       - APP_URL=http://arcane.lab
-      - PUID=1000
-      - PGID=1000
+      - PUID=1000 # A changer si besoin (command : id -> result : uid)
+      - PGID=1000 # A changer si besoin (command: id -> result : gid)
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - JWT_SECRET=${JWT_SECRET}
     restart: unless-stopped
