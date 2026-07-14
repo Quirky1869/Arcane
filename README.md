@@ -212,3 +212,15 @@ chmmod u+x clone-copy-repos-docker.sh
 ```
 
 Tous les dépôts listés seront clonés directement dans `~/docker/`
+
+### Container avec readme
+
+Certains container on un readme.md qui leurs est propre soit pour des construction de dossiers ou pour création de .env ou autre
+
+Voici les containers concernés :
+- Authelia
+- Dockur-Windows
+- Grafana
+- Netbox
+- Rackula
+- Yt-dlp
