@@ -50,6 +50,7 @@ Copie les résultats dans le fichier `.env` :
 ```bash
 ENCRYPTION_KEY=<résultat de openssl rand -hex 16>
 JWT_SECRET=<résultat de openssl rand -hex 32>
+PROJECTS_PATH=</home/jason/docker>
 ```
 
 Compléter ensuite votre fichier /etc/hosts (voir plus bas)

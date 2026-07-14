@@ -19,6 +19,3 @@ projects/beszel/beszel_socket/
 projects/authelia/secrets/jwt_secret
 projects/authelia/secrets/session_secret
 projects/authelia/secrets/storage_key
-
-# Netbox
-projects/netbox/.env
