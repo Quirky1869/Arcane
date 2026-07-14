@@ -1,3 +1,101 @@
+### Sans Traefik ###
+#services:
+#  netbox:
+#    image: netboxcommunity/netbox:latest
+#    container_name: netbox
+#    restart: unless-stopped
+#    ports:
+#      - "8000:8080"
+#    environment: &netbox-env
+#      SUPERUSER_API_TOKEN: "${NETBOX_API_TOKEN}"
+#      SUPERUSER_EMAIL: "admin@netbox.lab"
+#      SUPERUSER_NAME: "admin"
+#      SUPERUSER_PASSWORD: "${NETBOX_ADMIN_PASSWORD}"
+#      ALLOWED_HOSTS: "*"
+#      DB_HOST: postgres
+#      DB_NAME: netbox
+#      DB_PASSWORD: "${NETBOX_DB_PASSWORD}"
+#      DB_USER: netbox
+#      REDIS_CACHE_HOST: redis-cache
+#      REDIS_HOST: redis
+#      SECRET_KEY: "${NETBOX_SECRET_KEY}"
+#    volumes:
+#      - netbox-media:/opt/netbox/netbox/media
+#      - netbox-reports:/opt/netbox/netbox/reports
+#      - netbox-scripts:/opt/netbox/netbox/scripts
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#
+#  netbox-worker:
+#    image: netboxcommunity/netbox:latest
+#    container_name: netbox-worker
+#    restart: unless-stopped
+#    command: /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py rqworker
+#    environment: *netbox-env
+#    volumes:
+#      - netbox-media:/opt/netbox/netbox/media
+#      - netbox-reports:/opt/netbox/netbox/reports
+#      - netbox-scripts:/opt/netbox/netbox/scripts
+#    depends_on:
+#      - netbox
+#
+#  netbox-housekeeping:
+#    image: netboxcommunity/netbox:latest
+#    container_name: netbox-housekeeping
+#    restart: unless-stopped
+#    command: /opt/netbox/housekeeping.sh
+#    environment: *netbox-env
+#    depends_on:
+#      - netbox
+#
+#  postgres:
+#    image: postgres:15-alpine
+#    container_name: netbox-postgres
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_DB: netbox
+#      POSTGRES_USER: netbox
+#      POSTGRES_PASSWORD: "${NETBOX_DB_PASSWORD}"
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U netbox"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  redis:
+#    image: redis:7-alpine
+#    container_name: netbox-redis
+#    restart: unless-stopped
+#    volumes:
+#      - redis-data:/data
+#    healthcheck:
+#      test: ["CMD", "redis-cli", "ping"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 3
+#
+#  redis-cache:
+#    image: redis:7-alpine
+#    container_name: netbox-redis-cache
+#    restart: unless-stopped
+#    healthcheck:
+#      test: ["CMD", "redis-cli", "ping"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 3
+#
+#volumes:
+#  netbox-media:
+#  netbox-reports:
+#  netbox-scripts:
+#  postgres-data:
+#  redis-data:
+
 ### Avec Traefik ###
 services:
   netbox:
@@ -51,15 +149,8 @@ services:
     depends_on:
       - netbox
 
-  # Nettoyage périodique des sessions et de l'historique
-  netbox-housekeeping:
-    image: netboxcommunity/netbox:latest
-    container_name: netbox-housekeeping
-    restart: unless-stopped
-    command: /opt/netbox/housekeeping.sh
-    environment: *netbox-env
-    depends_on:
-      - netbox
+  # Note : depuis NetBox v4.4.0, le housekeeping tourne automatiquement
+  # via le worker (RQ scheduler) — plus besoin de conteneur séparé.
 
   postgres:
     image: postgres:15-alpine

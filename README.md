@@ -160,6 +160,7 @@ volumes:
 127.0.0.1   windows.lab # dockur
 127.0.0.1   macos.lab # dockur
 127.0.0.1   yt-dlp.lab
+127.0.0.1   netbox.lab
 ...
 ```
 
