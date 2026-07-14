@@ -4,6 +4,8 @@ Il faut créer un .env
 
 ```bash
 cp .env.example .env
+# ou
+touch .env
 ```
 
 ```bash
