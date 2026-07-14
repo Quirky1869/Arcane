@@ -52,6 +52,8 @@ ENCRYPTION_KEY=<résultat de openssl rand -hex 16>
 JWT_SECRET=<résultat de openssl rand -hex 32>
 ```
 
+Compléter ensuite votre fichier /etc/hosts (voir plus bas)
+
 ### 4. Lancer Arcane
 
 ```bash
@@ -156,6 +158,8 @@ volumes:
 127.0.0.1   auth.lab
 127.0.0.1   rackula.lab
 127.0.0.1   windows.lab # dockur
+127.0.0.1   macos.lab # dockur
+127.0.0.1   yt-dlp.lab
 ...
 ```
 
@@ -181,7 +185,6 @@ Pour les projets sans repo particulier des docker-compose.yml sont créer dans A
 
 - La liste des dépôts à cloner se trouve tout en haut du script, dans le tableau `REPOS`.
 - Le script détecte automatiquement le dossier dans lequel il se trouve, puis clone chaque dépôt dans le **dossier parent** (`~/docker`), peu importe d'où le script est lancé.
-- Le nom du dossier créé pour chaque clone est déduit automatiquement de l'URL du dépôt (ex : `Purple-Spells.git` → dossier `Purple-Spells`).
 - Si un dossier existe déjà, le script le **saute automatiquement** pour ne rien écraser.
 - Compatible avec les URLs en SSH (`git@github.com:...`) et en HTTPS (`https://github.com/...`).
 - Le script copie aussi le contenu de Arcane/projects dans ~/docker
