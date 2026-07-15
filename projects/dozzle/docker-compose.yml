@@ -1,0 +1,31 @@
+### Sans Traefik ###
+#services:
+#  dozzle:
+#    image: amir20/dozzle:latest
+#    container_name: dozzle
+#    restart: unless-stopped
+#    ports:
+#      - '9080:8080'
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+### Avec Traefik ###
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    ports:
+      - '9080:8080'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dozzle.rule=Host(`dozzle.lab`)"
+      - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
+
+networks:
+  traefik-net:
+    external: true
