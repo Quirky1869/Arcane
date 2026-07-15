@@ -93,6 +93,7 @@ Exemple `/etc/hosts` :
 ```bash
 sudo docker-compose up -d
 ```
+> [!CAUTION]
 > Si vous utilisez les containers (dont Arcane) avec Traefik, merci de démarrer le container "Traefik" en premier pour ne pas avoir l'erreur :  
 > <span style=color:red;>network traefik-net declared as external, but could not be found</span>
 
