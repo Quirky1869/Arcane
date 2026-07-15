@@ -57,7 +57,7 @@ Si vous avez modifié votre `/etc/hosts`, vous pouvez maintenant commenter ou su
 #127.0.0.1   dozzle.lab
 ```
 
-Une fois cela fait ouvrez votre navigateur préféré en privée (pour ne pas avoir de cache) et testé si les noms de comaine .lab fonctionnent :
+Une fois cela fait ouvrez votre navigateur préféré en privée (pour ne pas avoir de cache) et testé si les noms de comaine .lab fonctionnent :  
 http://arcane.lab   
 http://heimdall.lab   
 http://technitium.lab   
