@@ -52,7 +52,7 @@ ENCRYPTION_KEY=<résultat de openssl rand -hex 16>
 JWT_SECRET=<résultat de openssl rand -hex 32>
 PROJECTS_PATH=</home/jason/docker>
 ```
->  [!TIPS]  
+>  [!TIP]  
 > Si vous souhaitez utiliser `Technitium (DNS self hosted)`, il est conseillé de lire le [readme.md](./projects/technitium/readme.md) spécifique à Technitium + démarrer le container Technitium en troisième après Traefik (obligatoire avec Technitium) et Arcane  
 
 Si vous ne souhaitez pas utiliser le container `Technitium (DNS self hosted)`, il faudra alors compléter votre fichier `/etc/hosts`  
