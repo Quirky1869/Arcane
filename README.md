@@ -21,6 +21,32 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 │   └── README.md
 ```
 
+## Workflow de déploiement
+
+> **Traefik** : Reverse Proxy  
+> **Technitium** : DNS Self hosted  
+> **Mkcert** : Génération de certificats (HTTPS)
+
+### Sans Traefik, Technitium et mkcert
+
+Déployer l'infra en suivant ce README.md  
+
+Les accès au container se feront via votre adresse ip loopbak + port  
+
+Ex : http://127.0.0.1:9080   
+
+### Avec Traefik
+
+Ex : http://netbox.lab/  
+
+### Avec Traefik et Technitium
+
+Ex : http://beszel.lab/  
+
+### Avec Traefik, Technitium et mkcert
+
+Ex : https://traefik.home.lab   
+
 ## Installation d'Arcane
 
 ### 1. Cloner le dépôt
@@ -131,41 +157,6 @@ services:
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - JWT_SECRET=${JWT_SECRET}
     restart: unless-stopped
-volumes:
-  arcane-data:
-```
-
-## docker-compose.yml d'Arcane avec Traefik
-
-```yaml
-services:
-  arcane:
-    image: ghcr.io/getarcaneapp/arcane:latest
-    container_name: arcane
-    networks:
-      - traefik-net
-    ports:
-      - '3552:3552'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - arcane-data:/app/data
-      - ${PROJECTS_PATH}:/app/data/projects # Changez la variable PROJECTS_PATH dans le .env, elle doit ressembler à "/home/jason/docker"
-    environment:
-      - APP_URL=http://arcane.lab
-      - PUID=1000 # À changer si besoin (commande : id -> résultat : uid)
-      - PGID=1000 # À changer si besoin (commande : id -> résultat : gid)
-      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - JWT_SECRET=${JWT_SECRET}
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.arcane.rule=Host(`arcane.lab`)"
-      - "traefik.http.services.arcane.loadbalancer.server.port=3552"
-
-networks:
-  traefik-net:
-    external: true
-
 volumes:
   arcane-data:
 ```
