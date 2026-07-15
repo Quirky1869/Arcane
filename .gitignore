@@ -19,3 +19,7 @@ projects/beszel/beszel_socket/
 projects/authelia/secrets/jwt_secret
 projects/authelia/secrets/session_secret
 projects/authelia/secrets/storage_key
+
+# Traefik
+projects/traefik/certs/*-key.pem
+projects/traefik/certs/*.pem

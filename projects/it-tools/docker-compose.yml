@@ -9,18 +9,39 @@
 #    restart: unless-stopped
 
 
-### Avec Traefik ###
+### Avec Traefik et ou Technitium ###
+#services:
+#  it-tools:
+#    image: corentinth/it-tools:latest
+#    container_name: it-tools
+#    networks:
+#      - traefik-net
+#    ports:
+#      - '9825:80'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.it-tools.rule=Host(`it-tools.lab`)"
+#      - "traefik.http.services.it-tools.loadbalancer.server.port=80"
+#    restart: unless-stopped
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   it-tools:
     image: corentinth/it-tools:latest
     container_name: it-tools
     networks:
       - traefik-net
-    ports:
-      - '9825:80'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+    #ports:
+      #- '8085:80'
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.it-tools.rule=Host(`it-tools.lab`)"
+      - "traefik.http.routers.it-tools.rule=Host(`it-tools.home.lab`)" # https://it-tools.home.lab/
+      - "traefik.http.routers.it-tools.entrypoints=websecure"
+      - "traefik.http.routers.it-tools.tls=true"
       - "traefik.http.services.it-tools.loadbalancer.server.port=80"
     restart: unless-stopped
 
