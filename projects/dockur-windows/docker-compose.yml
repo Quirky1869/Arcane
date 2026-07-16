@@ -107,3 +107,5 @@ services:
 networks:
   traefik-net:
     external: true
+
+# RDP : xfreerdp /u:jason /p:P@ssw0rd! /v:windows.home.lab /cert:ignore /dynamic-resolution /scale-desktop:150 +clipboard
