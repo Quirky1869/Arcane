@@ -10,6 +10,27 @@
 #      - TZ=Europe/Paris
 
 ### Avec Traefik ###
+#services:
+#  excalidraw:
+#    image: excalidraw/excalidraw:latest
+#    container_name: excalidraw
+#    restart: unless-stopped
+#    networks:
+#      - traefik-net
+#    ports:
+#      - "9731:80"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    environment:
+#      - TZ=Europe/Paris
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.excalidraw.rule=Host(`excalidraw.lab`)"
+#      - "traefik.http.services.excalidraw.loadbalancer.server.port=80"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   excalidraw:
     image: excalidraw/excalidraw:latest
@@ -23,9 +44,11 @@ services:
       - TZ=Europe/Paris
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.excalidraw.rule=Host(`excalidraw.lab`)"
+      - "traefik.http.routers.excalidraw.rule=Host(`excalidraw.home.lab`)"
+      - "traefik.http.routers.excalidraw.entrypoints=websecure"
+      - "traefik.http.routers.excalidraw.tls=true"
       - "traefik.http.services.excalidraw.loadbalancer.server.port=80"
-
+ 
 networks:
   traefik-net:
     external: true

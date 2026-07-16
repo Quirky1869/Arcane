@@ -25,6 +25,41 @@
 ### Avec Traefik ###
 # Note : seul le port 8006 (interface web) passe par Traefik.
 # Le port 5900 (VNC) reste en accès direct IP:port, ce n'est pas du HTTP.
+#services:
+#  macos:
+#    image: dockurr/macos
+#    container_name: macos
+#    networks:
+#      - traefik-net
+#    environment:
+#      VERSION: "14"
+#      RAM_SIZE: "4G" # A adapter
+#      CPU_CORES: "4" # Sur Proc AMD mettre "1"
+#      DISK_SIZE: "64G"
+#    devices:
+#      - /dev/kvm
+#      - /dev/net/tun
+#    cap_add:
+#      - NET_ADMIN
+#    ports:
+#      - 8007:8006   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#      - 5900:5900/tcp   # VNC, toujours en accès direct, pas de routage Traefik possible
+#      - 5900:5900/udp
+#    volumes:
+#      - ./macos:/storage
+#    restart: unless-stopped
+#    stop_grace_period: 2m
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.docker.network=traefik-net"
+#      - "traefik.http.routers.macos.rule=Host(`macos.lab`)"
+#      - "traefik.http.services.macos.loadbalancer.server.port=8006"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   macos:
     image: dockurr/macos
@@ -52,9 +87,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.macos.rule=Host(`macos.lab`)"
+      - "traefik.http.routers.macos.rule=Host(`macos.home.lab`)"
+      - "traefik.http.routers.macos.entrypoints=websecure"
+      - "traefik.http.routers.macos.tls=true"
       - "traefik.http.services.macos.loadbalancer.server.port=8006"
-
+ 
 networks:
   traefik-net:
     external: true

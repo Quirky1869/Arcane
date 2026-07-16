@@ -1,7 +1,7 @@
 ### Sans Traefik ###
 #services:
 #  ffmpeg-web:
-#    # Build direct depuis le dépôt GitHub, pas besoin de cloner à la main
+#
 #    build:
 #      context: https://github.com/dinoosauro/ffmpeg-web.git#main
 #    container_name: ffmpeg-web
@@ -11,9 +11,31 @@
 #    restart: unless-stopped
 
 ### Avec Traefik ###
+#services:
+#  ffmpeg-web:
+#
+#    build:
+#      context: https://github.com/dinoosauro/ffmpeg-web.git#main
+#    container_name: ffmpeg-web
+#    networks:
+#      - traefik-net
+#    ports:
+#      - "9831:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#      # - "3443:443" # Décommenter si tu actives le HTTPS
+#    restart: unless-stopped
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.ffmpeg-web.rule=Host(`ffmpeg-web.lab`)"
+#      - "traefik.http.services.ffmpeg-web.loadbalancer.server.port=3000"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   ffmpeg-web:
-    # Build direct depuis le dépôt GitHub, pas besoin de cloner à la main
+
     build:
       context: https://github.com/dinoosauro/ffmpeg-web.git#main
     container_name: ffmpeg-web
@@ -25,7 +47,9 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.ffmpeg-web.rule=Host(`ffmpeg-web.lab`)"
+      - "traefik.http.routers.ffmpeg-web.rule=Host(`ffmpeg-web.home.lab`)"
+      - "traefik.http.routers.ffmpeg-web.entrypoints=websecure"
+      - "traefik.http.routers.ffmpeg-web.tls=true"
       - "traefik.http.services.ffmpeg-web.loadbalancer.server.port=3000"
 
 networks:

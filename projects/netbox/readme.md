@@ -1,4 +1,4 @@
-# Netbox
+M Netbox
 
 Il faut créer un .env
 
@@ -17,9 +17,23 @@ echo "NETBOX_SECRET_KEY=$(python3 -c "import secrets; print(secrets.token_urlsaf
 # echo "NETBOX_SECRET_KEY=$(openssl rand -base64 50 | tr -d '\n')" >> .env
 ```
 
-Le 1er demmarage est long
+Le 1er demarrage est long TREEEEES LONG (10-15 min)
 
 ```bash
 # Pour suivre les logs
 sudo docker compose logs -f netbox
 ```
+Dans les logs on peut voir la fin grace à la ligne :
+```
+STDOUT
+[INFO] Started worker-3
+STDOUT
+[INFO] Started worker-1
+STDOUT
+[INFO] Started worker-2
+STDOUT
+[INFO] Started worker-4
+```
+
+Identifiant : admin
+Mot de passe : il est défini dans .env NETBOX_ADMIN_PASSWORD

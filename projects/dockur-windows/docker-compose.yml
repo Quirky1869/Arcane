@@ -29,6 +29,45 @@
 ### Avec Traefik ###
 # Note : seul le port 8006 (interface web) passe par Traefik.
 # Le port 3389 (RDP) reste en accès direct IP:port, car ce n'est pas du HTTP.
+#services:
+#  windows:
+#    image: dockurr/windows
+#    container_name: windows
+#    networks:
+#      - traefik-net
+#    environment:
+#      VERSION: "11"
+#      LANGUAGE: "French"
+#      REGION: "fr-FR"
+#      KEYBOARD: "fr"
+#      USERNAME: "jason"   # A changer
+#      PASSWORD: "P@ssw0rd!"   # A changer
+#      RAM_SIZE: "8G"   # A Adapter (4G par defaut)
+#      CPU_CORES: "4"
+#      DISK_SIZE: "64G"
+#    devices:
+#      - /dev/kvm
+#      - /dev/net/tun
+#    cap_add:
+#      - NET_ADMIN
+#    ports:
+#      - 8006:8006   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#      - 3389:3389/tcp   # RDP, toujours en accès direct, pas de routage Traefik possible
+#    volumes:
+#      - ./windows:/storage
+#    restart: unless-stopped
+#    stop_grace_period: 2m
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.docker.network=traefik-net"
+#      - "traefik.http.routers.windows.rule=Host(`windows.lab`)"
+#      - "traefik.http.services.windows.loadbalancer.server.port=8006"
+
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   windows:
     image: dockurr/windows
@@ -60,9 +99,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.windows.rule=Host(`windows.lab`)"
+      - "traefik.http.routers.windows.rule=Host(`windows.home.lab`)"
+      - "traefik.http.routers.windows.entrypoints=websecure"
+      - "traefik.http.routers.windows.tls=true"
       - "traefik.http.services.windows.loadbalancer.server.port=8006"
-
+ 
 networks:
   traefik-net:
     external: true

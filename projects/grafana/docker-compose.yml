@@ -1,17 +1,51 @@
+### Sans Traefik ###
+
+#services:
+#  grafana:
+#    image: grafana/grafana-oss:latest
+#    container_name: grafana
+#    restart: unless-stopped
+#    ports:
+#      - "4457:3000"
+#    environment:
+#      - TZ=Europe/Paris
+#      - GF_SECURITY_ADMIN_USER=admin
+#      - GF_SECURITY_ADMIN_PASSWORD=change_moi
+#      # - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app  # pour connecter Zabbix, voir plus bas
+#    volumes:
+#      - grafana_data:/var/lib/grafana
+#
+#volumes:
+#  grafana_data:
+
+### Avec mkcert ###
 services:
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana
     restart: unless-stopped
+    networks:
+      - traefik-net
     ports:
-      - "4457:3000"
+      - "4457:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
     environment:
       - TZ=Europe/Paris
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=change_moi
+      - GF_SERVER_ROOT_URL=https://grafana.home.lab
       # - GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app  # pour connecter Zabbix, voir plus bas
     volumes:
       - grafana_data:/var/lib/grafana
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.home.lab`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+ 
+networks:
+  traefik-net:
+    external: true
+ 
 volumes:
   grafana_data:

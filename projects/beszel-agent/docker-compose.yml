@@ -12,4 +12,5 @@ services:
       KEY: "clé généré via l'interface beszel dans 'Ajouter Système'"
       HUB_URL: "http://beszel.lab"
       #HUB_URL: "http://localhost:8090" # Sans Traefik
+      #HUB_URL: "https://beszel.home.lab" # Avec mkcert
       TOKEN: "token généré via l'interface beszel dans 'Ajouter Système'"

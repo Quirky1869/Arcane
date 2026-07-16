@@ -13,6 +13,30 @@
 #      - ./data:/app/data
 
 ### Avec Traefik ###
+#services:
+#  convertx:
+#    image: ghcr.io/c4illin/convertx
+#    container_name: convertx
+#    restart: unless-stopped
+#    networks:
+#      - traefik-net
+#    ports:
+#      - "3001:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    environment:
+#      - JWT_SECRET=aLongAndSecretStringUsedToSignTheJSONWebToken1234 # will use randomUUID() if unset
+#      - HTTP_ALLOWED=true # uncomment this if accessing it over a non-https connection
+#    volumes:
+#      - ./data:/app/data
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.convertx.rule=Host(`convertx.lab`)"
+#      - "traefik.http.services.convertx.loadbalancer.server.port=3000"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   convertx:
     image: ghcr.io/c4illin/convertx
@@ -24,14 +48,16 @@ services:
       - "3001:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
     environment:
       - JWT_SECRET=aLongAndSecretStringUsedToSignTheJSONWebToken1234 # will use randomUUID() if unset
-      - HTTP_ALLOWED=true # uncomment this if accessing it over a non-https connection
+      - HTTP_ALLOWED=false # accès HTTPS via Traefik, plus besoin du bypass
     volumes:
       - ./data:/app/data
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.convertx.rule=Host(`convertx.lab`)"
+      - "traefik.http.routers.convertx.rule=Host(`convertx.home.lab`)"
+      - "traefik.http.routers.convertx.entrypoints=websecure"
+      - "traefik.http.routers.convertx.tls=true"
       - "traefik.http.services.convertx.loadbalancer.server.port=3000"
-
+ 
 networks:
   traefik-net:
     external: true
