@@ -1,0 +1,41 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+
+#providers:
+#  openweathermap: openweathermapapikey
+#  weatherapi: weatherapiapikey
+
+title: Homelab
+theme: dark
+color: slate
+
+layout:
+  Autres:
+    style: row
+    columns: 2
+  Créativité & Diagrammes:
+    style: row
+    columns: 3
+  Infra & Réseau:
+    style: row
+    columns: 3
+  Machines Virtuelles:
+    style: row
+    columns: 2
+  Monitoring:
+    style: row
+    columns: 3
+  Outils:
+    style: row
+    columns: 2
+
+background:
+  #image: https://images.unsplash.com/photo-1451187580459-43490279c0fa
+  image: /images/lock-wallpaper.jpg
+  #blur: md #md,lg
+  saturate: 50
+  brightness: 50
+  opacity: 50
+
+cardBlur: lg #sm,#lg

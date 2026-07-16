@@ -1,0 +1,22 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+
+#- search:
+#    provider: duckduckgo
+#    target: _blank
+
+- datetime:
+    locale: fr
+    format:
+      dateStyle: long
+      timeStyle: short
+
+- greeting:
+    text_size: xl
+    text: "Welcome to Homelab"

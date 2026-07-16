@@ -1,0 +1,91 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Autres:
+    - Arcane:
+        icon: mdi-docker
+        href: https://arcane.home.lab
+        description: Gestion des containers Docker
+    - SQLite Browser:
+        icon: si-sqlite
+        href: https://sqlitebrowser.home.lab
+        description: Lecteur/éditeur de bases SQLite
+
+- Créativité & Diagrammes:
+    - Draw.io:
+        icon: draw-io.png
+        href: https://drawio.home.lab
+        description: Éditeur de schémas et diagrammes
+    - Excalidraw:
+        icon: excalidraw.png
+        href: https://excalidraw.home.lab
+        description: Tableau blanc collaboratif
+    - Rackula:
+        icon: mdi-server-network
+        href: https://rackula.home.lab
+        description: Éditeur visuel de racks serveurs
+
+- Infra & Réseau:
+    - NetBox:
+        icon: netbox.png
+        href: https://netbox.home.lab
+        description: IPAM / documentation réseau
+    - Technitium:
+        icon: technitium.png
+        href: https://technitium.home.lab
+        description: Serveur DNS self-hosted
+    - Traefik:
+        icon: traefik.png
+        href: https://traefik.home.lab
+        description: Reverse proxy
+
+- Machines Virtuelles:
+    - macOS (Dockur):
+        icon: si-apple
+        href: https://macos.home.lab
+        description: VM macOS via Dockur
+    - Windows (Dockur):
+        icon: si-windows11
+        href: https://windows.home.lab
+        description: VM Windows 11 via Dockur
+
+- Monitoring:
+    - Beszel:
+        icon: beszel.png
+        href: https://beszel.home.lab
+        description: Supervision système
+    - Dozzle:
+        icon: dozzle.png
+        href: https://dozzle.home.lab
+        description: Logs Docker en direct
+    - Grafana:
+        icon: grafana.png
+        href: https://grafana.home.lab
+        description: Dashboards et métriques
+
+- Outils:
+    - Backup Calculator:
+        icon: mdi-calculator-variant-outline
+        href: https://backup-calc.home.lab
+        description: Calculateur de stratégie de sauvegarde
+    - ConvertX:
+        icon: mdi-file-swap-outline
+        href: https://convertx.home.lab
+        description: Conversion de fichiers
+    - IT-Tools:
+        icon: it-tools.png
+        href: https://it-tools.home.lab
+        description: Boîte à outils IT
+    - Purple Spells:
+        icon: mdi-flask-outline
+        href: https://purple-spells.home.lab
+        description: Outils pentest
+    - Stirling PDF:
+        icon: stirling-pdf.png
+        href: https://stirling.home.lab
+        description: Édition de PDF
+    - yt-dlp WebUI:
+        icon: youtube-dl.png
+        href: https://yt-dlp.home.lab
+        description: Téléchargement de vidéos

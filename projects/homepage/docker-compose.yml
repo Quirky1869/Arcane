@@ -1,0 +1,72 @@
+### Sans Traefik ###
+#services:
+#  homepage:
+#    image: ghcr.io/gethomepage/homepage:latest
+#    container_name: homepage
+#    restart: unless-stopped
+#    ports:
+#      - "3010:3000"
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - HOMEPAGE_ALLOWED_HOSTS=127.0.0.1:3010
+#    volumes:
+#      - ./config:/app/config
+#      - ./images:/app/public/images
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+### Avec Traefik ###
+#services:
+#  homepage:
+#    image: ghcr.io/gethomepage/homepage:latest
+#    container_name: homepage
+#    restart: unless-stopped
+#    networks:
+#      - traefik-net
+#    ports:
+#      - "3010:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - HOMEPAGE_ALLOWED_HOSTS=homepage.lab
+#    volumes:
+#      - ./config:/app/config
+#      - ./images:/app/public/images
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.homepage.rule=Host(`homepage.lab`)"
+#      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    ports:
+      - "3010:3000"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - HOMEPAGE_ALLOWED_HOSTS=homepage.home.lab #,localhost:3010,127.0.0.1:3010
+    volumes:
+      - ./config:/app/config
+      - ./images:/app/public/images
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.homepage.rule=Host(`homepage.home.lab`)"
+      - "traefik.http.routers.homepage.entrypoints=websecure"
+      - "traefik.http.routers.homepage.tls=true"
+      - "traefik.http.services.homepage.loadbalancer.server.port=3000"
+
+networks:
+  traefik-net:
+    external: true
