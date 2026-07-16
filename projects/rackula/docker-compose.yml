@@ -36,6 +36,74 @@
 #      - "3001"
 
 ### Avec Traefik ###
+#services:
+#  rackula:
+#    image: ghcr.io/rackulalives/rackula:persist
+#    container_name: rackula
+#    networks:
+#      - default
+#      - traefik-net
+#    ports:
+#      - "8754:8080"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    environment:
+#      - API_HOST=rackula-api
+#      - API_PORT=3001
+#      - RACKULA_LISTEN_PORT=8080
+#      - RACKULA_AUTH_MODE=none
+#    restart: unless-stopped
+#    stop_grace_period: 10s
+#    depends_on:
+#      rackula-api:
+#        condition: service_healthy
+#    security_opt:
+#      - no-new-privileges:true
+#    cap_drop:
+#      - ALL
+#    read_only: true
+#    tmpfs:
+#      - /var/cache/nginx:size=10M
+#      - /var/run:size=1M
+#      - /tmp:size=5M
+#      - /etc/nginx/conf.d:size=1M,uid=101,gid=101
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.docker.network=traefik-net"
+#      - "traefik.http.routers.rackula.rule=Host(`rackula.lab`)"
+#      - "traefik.http.services.rackula.loadbalancer.server.port=8080"
+#
+#  rackula-api:
+#    image: ghcr.io/rackulalives/rackula-api:latest
+#    container_name: rackula-api
+#    restart: unless-stopped
+#    stop_grace_period: 10s
+#    volumes:
+#      - ./data:/data
+#    environment:
+#      - DATA_DIR=/data
+#      - RACKULA_API_PORT=3001
+#      - CORS_ORIGIN=http://rackula.lab
+#      - RACKULA_AUTH_MODE=none
+#    security_opt:
+#      - no-new-privileges:true
+#    cap_drop:
+#      - ALL
+#    read_only: true
+#    tmpfs:
+#      - /tmp:size=5M
+#    healthcheck:
+#      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3001/health"]
+#      interval: 30s
+#      timeout: 10s
+#      start_period: 5s
+#      retries: 3
+#    expose:
+#      - "3001"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   rackula:
     image: ghcr.io/rackulalives/rackula:persist
@@ -68,9 +136,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.rackula.rule=Host(`rackula.lab`)"
+      - "traefik.http.routers.rackula.rule=Host(`rackula.home.lab`)"
+      - "traefik.http.routers.rackula.entrypoints=websecure"
+      - "traefik.http.routers.rackula.tls=true"
       - "traefik.http.services.rackula.loadbalancer.server.port=8080"
-
+ 
   rackula-api:
     image: ghcr.io/rackulalives/rackula-api:latest
     container_name: rackula-api
@@ -81,7 +151,7 @@ services:
     environment:
       - DATA_DIR=/data
       - RACKULA_API_PORT=3001
-      - CORS_ORIGIN=http://rackula.lab
+      - CORS_ORIGIN=https://rackula.home.lab
       - RACKULA_AUTH_MODE=none
     security_opt:
       - no-new-privileges:true
@@ -98,7 +168,7 @@ services:
       retries: 3
     expose:
       - "3001"
-
+ 
 networks:
   traefik-net:
     external: true

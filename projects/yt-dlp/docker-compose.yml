@@ -13,6 +13,31 @@
 #      - TZ=Europe/Paris
 
 ### Avec Traefik ###
+#services:
+#  yt-dlp-webui:
+#    image: marcobaobao/yt-dlp-webui:latest
+#    container_name: yt-dlp-webui
+#    restart: unless-stopped
+#    networks:
+#      - traefik-net
+#    ports:
+#      - "3033:3033"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+#    volumes:
+#      - ./downloads:/downloads
+#      - ./config:/config
+#    environment:
+#      - TZ=Europe/Paris
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.docker.network=traefik-net"
+#      - "traefik.http.routers.yt-dlp-webui.rule=Host(`yt-dlp.lab`)"
+#      - "traefik.http.services.yt-dlp-webui.loadbalancer.server.port=3033"
+#
+#networks:
+#  traefik-net:
+#    external: true
+
+### Avec mkcert ###
 services:
   yt-dlp-webui:
     image: marcobaobao/yt-dlp-webui:latest
@@ -30,9 +55,11 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.yt-dlp-webui.rule=Host(`yt-dlp.lab`)"
+      - "traefik.http.routers.yt-dlp-webui.rule=Host(`yt-dlp.home.lab`)"
+      - "traefik.http.routers.yt-dlp-webui.entrypoints=websecure"
+      - "traefik.http.routers.yt-dlp-webui.tls=true"
       - "traefik.http.services.yt-dlp-webui.loadbalancer.server.port=3033"
-
+ 
 networks:
   traefik-net:
     external: true
