@@ -100,7 +100,7 @@ Exemple `/etc/hosts` :
 127.0.0.1   excalidraw.lab
 127.0.0.1   ffmpeg-web.lab
 127.0.0.1   grafana.lab
-127.0.0.1   heimdall.lab
+127.0.0.1   homepage.lab
 127.0.0.1   it-tools.lab
 127.0.0.1   macos.lab # dockur
 127.0.0.1   netbox.lab
