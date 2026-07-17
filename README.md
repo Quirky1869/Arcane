@@ -41,6 +41,8 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 > mv projects/it-tools/docker-compose-raw.yml projects/it-tools/docker-compose.yml   
 > ```
 
+___  
+
 ### Sans Traefik, Technitium et mkcert
 
 **Fichiers concernés : docker-compose-raw.yml**  
@@ -50,6 +52,8 @@ Déployer l'infra en suivant ce README.md
 Les accès au container se feront via votre adresse ip loopbak + port  
 
 Ex : http://127.0.0.1:9080   
+
+___  
 
 ### Avec Traefik
 
@@ -63,6 +67,8 @@ Ex : http://127.0.0.1:9080
 L'accès se fera ensuite via votre nom renseigner dans le fichier `/etc/hosts` + TLD (en http)  
 
 Ex : http://netbox.lab/  
+
+___  
 
 ### Avec Traefik et Technitium
 
@@ -79,6 +85,8 @@ Ex : http://netbox.lab/
 L'accès se fera ensuite via les hôtes A renseignés dans Technitium + TLD (en http)  
 
 Ex : http://beszel.lab/  
+
+___  
 
 ### Avec Traefik, Technitium et mkcert
 
