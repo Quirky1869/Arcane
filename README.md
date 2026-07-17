@@ -27,6 +27,9 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 > **Technitium** : DNS Self hosted  
 > **Mkcert** : Génération de certificats (HTTPS)
 
+> [!CAUTION]
+> Plusieurs fichiers .yml sont présent dans les dossiers projects/*
+
 ### Sans Traefik, Technitium et mkcert
 
 Déployer l'infra en suivant ce README.md  
@@ -37,9 +40,13 @@ Ex : http://127.0.0.1:9080
 
 ### Avec Traefik
 
+Lancer le container 
+
 Ex : http://netbox.lab/  
 
 ### Avec Traefik et Technitium
+
+
 
 Ex : http://beszel.lab/  
 

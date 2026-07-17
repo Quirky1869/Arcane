@@ -2,6 +2,10 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services/
 
+# Pour avoir les icones aller sur : https://dashboardicons.com/
+# ou pour les mdi : https://pictogrammers.com/library/mdi/
+# ou pour les si : https://simpleicons.org/
+
 - Autres:
     - Arcane:
         icon: mdi-docker
