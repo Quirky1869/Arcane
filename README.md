@@ -27,10 +27,23 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 > **Technitium** : DNS Self hosted  
 > **Mkcert** : Génération de certificats (HTTPS)
 
-> [!CAUTION]
-> Plusieurs fichiers .yml sont présent dans les dossiers projects/*
+> [!CAUTION]  
+> Plusieurs fichiers .yml sont présent dans les dossiers `projects/*`  
+> L'infrastructure peut être configurée de plusieurs façon, voir ci-dessous  
+
+> [!TIP]  
+> Par défaut l'infrastructure est configurée pour fonctionnée avec Traefik, Technitium et mkcert  
+> Si vous souhaiter faire fonctionner l'infra d'une autre façon merci suivre les indications ce dessous et de renommer les fichiers correspondant dans `projects/*`  
+> <b><u>Exemple :</u></b>  
+> ```
+> mv projects/it-tools/docker-compose.yml projects/it-tools/docker-compose.yml.ori
+>  
+> mv projects/it-tools/docker-compose-raw.yml projects/it-tools/docker-compose.yml   
+> ```
 
 ### Sans Traefik, Technitium et mkcert
+
+**Fichiers concernés : docker-compose-raw.yml**  
 
 Déployer l'infra en suivant ce README.md  
 
@@ -40,17 +53,44 @@ Ex : http://127.0.0.1:9080
 
 ### Avec Traefik
 
-Lancer le container 
+**Fichiers concernés : docker-compose-with-traefik-and-or-technitium.yml**  
+
+- Lancer le container Traefik en premier afin de créer le réseau : `traefik-net`  
+- Renommer les `docker-compose-with-traefik-and-or-technitium.yml` en `docker-compose.yml` des containers voulus  
+- Modifier votre fichier `/etc/hosts` (vous pouvez suivre l'exemple plus bas dans ce README.md) 
+- Lancer vos containers (it-tools, convertX, dozzle, homepage etc...)
+
+L'accès se fera ensuite via votre nom renseigner dans le fichier `/etc/hosts` + TLD (en http)  
 
 Ex : http://netbox.lab/  
 
 ### Avec Traefik et Technitium
 
+**Fichiers concernés : docker-compose-with-traefik-and-or-technitium.yml**  
 
+- Lancer le container Traefik en premier afin de créer le réseau : `traefik-net`  
+- Renommer les `docker-compose-with-traefik-n-technitium.yml` en `docker-compose.yml` des containers voulus 
+
+> [!NOTE]
+> - Le but est de passer par un DNS self hosted au lieu de modifier localement votre fichier `/etc/hosts` 
+
+- Pour paramétrer Technitium veuillez suivre la procédure "readme.md" dans le dossier `projects\technitium` - [Procédure ici](./projects/technitium/readme.md) 
+
+L'accès se fera ensuite via les hôtes A renseignés dans Technitium + TLD (en http)  
 
 Ex : http://beszel.lab/  
 
 ### Avec Traefik, Technitium et mkcert
+
+**Fichiers concernés : docker-compose.yml**  
+
+> [!NOTE]  
+> - C'est la façon dont l'infrastructure a été pensée au départ, fonctionner avec un reverse proxy (Traefik), un DNS (Technitium) et un générateur de certificats (mkcert)
+>- Les fichiers `docker-compose.yml` export volontairement leurs ports en solution de backup mais une fois tous les tests effectués et validés il est préférable de supprimer les lignes "ports:"  
+
+- Merci de suivre ci-dessus les déploiements "Avec Traefik" et "Avec Traefik et Technitium"
+- Une fois fait le but est de créer un domaine à deux niveaux et d'avoir nos pages en https, ex : https://convertx.home.lab
+- Merci de suivre la [procédure mkcert](./projects/mkcert/readme.md)    
 
 Ex : https://traefik.home.lab   
 
