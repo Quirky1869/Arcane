@@ -33,7 +33,7 @@ Ce dépôt regroupe l'ensemble de mes stacks Docker (Arcane, Purple-Spells, back
 
 > [!TIP]  
 > Par défaut l'infrastructure est configurée pour fonctionnée avec Traefik, Technitium et mkcert  
-> Si vous souhaiter faire fonctionner l'infra d'une autre façon merci suivre les indications ce dessous et de renommer les fichiers correspondant dans `projects/*`  
+> Si vous souhaiter faire fonctionner l'infra d'une autre façon merci suivre les indications ci-dessous et de renommer les fichiers correspondant dans `projects/*`  
 > <b><u>Exemple :</u></b>  
 > ```
 > mv projects/it-tools/docker-compose.yml projects/it-tools/docker-compose.yml.ori
