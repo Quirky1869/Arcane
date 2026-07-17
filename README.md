@@ -264,7 +264,7 @@ REPOS=(
 ```
 Tous les dépôts listés seront clonés directement dans `~/docker/`
 
-### Container avec readme
+## Container avec readme
 
 Certains containers ont un `readme.md` qui leur est propre, soit pour la création de dossiers, soit pour la création de fichier `.env`, ou autre
 
@@ -278,7 +278,7 @@ Voici les containers concernés :
 - Technitium
 - Yt-dlp
 
-### Named volumes
+## Named volumes
 
 L'emplacement des named volumes (présent dans plusieurs docker-compose.yml) se trouve sur votre hôte à cet emplacement :
 ```
