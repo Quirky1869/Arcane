@@ -82,7 +82,7 @@ ___
 
 - Pour paramétrer Technitium veuillez suivre la procédure "readme.md" dans le dossier `projects\technitium` - [Procédure ici](./projects/technitium/readme.md) 
 
-L'accès se fera ensuite via les hôtes A renseignés dans Technitium + TLD (en http)  
+L'accès se fera ensuite via les hôtes A renseignés dans Technitium + TLD (en http) dans la zone "lab"  
 
 Ex : http://beszel.lab/  
 
@@ -99,6 +99,8 @@ ___
 - Merci de suivre ci-dessus les déploiements "Avec Traefik" et "Avec Traefik et Technitium"
 - Une fois fait le but est de créer un domaine à deux niveaux et d'avoir nos pages en https, ex : https://convertx.home.lab
 - Merci de suivre la [procédure mkcert](./projects/mkcert/readme.md)    
+
+L'accès se fera ensuite via les hôtes A renseignés dans Technitium + TLD (en https) dans la zone "home.lab"  
 
 Ex : https://traefik.home.lab   
 
