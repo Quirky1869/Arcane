@@ -1,0 +1,19 @@
+## Sans Traefik ###
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - '2255:8080'
+    volumes:
+      - ./data/tessdata:/usr/share/tessdata
+      - ./data/configs:/configs
+      - ./data/logs:/logs
+      - ./data/customFiles:/customFiles
+      - ./data/pipeline:/pipeline
+    environment:
+      - SECURITY_ENABLELOGIN=true
+      - LANGS=fr_FR,en_GB
+      - SYSTEM_DEFAULTLOCALE=fr-FR
+      - SYSTEM_MAXFILESIZE=100

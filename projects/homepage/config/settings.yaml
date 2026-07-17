@@ -13,7 +13,7 @@ color: slate
 layout:
   Autres:
     style: row
-    columns: 2
+    columns:2
   Créativité & Diagrammes:
     style: row
     columns: 3

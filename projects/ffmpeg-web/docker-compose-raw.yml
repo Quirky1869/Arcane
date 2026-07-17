@@ -1,0 +1,11 @@
+## Sans Traefik ###
+services:
+  ffmpeg-web:
+
+    build:
+      context: https://github.com/dinoosauro/ffmpeg-web.git#main
+    container_name: ffmpeg-web
+    ports:
+      - "9831:3000"   # HTTP -> http://localhost:9831
+      # - "3443:443" # Décommenter si tu actives le HTTPS
+    restart: unless-stopped

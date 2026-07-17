@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   drawio:
     image: jgraph/drawio:latest
@@ -11,19 +11,17 @@ services:
       # - "8443:8443"   # décommente si tu veux le HTTPS interne du conteneur
     environment:
       - TZ=Europe/Paris
-      - DRAWIO_BASE_URL=https://drawio.home.lab
+      # - DRAWIO_BASE_URL=https://drawio.tondomaine.fr   # utile si derrière reverse proxy
     volumes:
       - drawio_data:/var/lib/drawio  # pas de persistance de dessins par défaut (stockage géré côté client/export), mais garde le dossier pour plugins/config
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.drawio.rule=Host(`drawio.home.lab`)"
-      - "traefik.http.routers.drawio.entrypoints=websecure"
-      - "traefik.http.routers.drawio.tls=true"
+      - "traefik.http.routers.drawio.rule=Host(`drawio.lab`)"
       - "traefik.http.services.drawio.loadbalancer.server.port=8080"
- 
+
 networks:
   traefik-net:
     external: true
- 
+
 volumes:
   drawio_data:

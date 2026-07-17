@@ -1,0 +1,19 @@
+## Sans Traefik ###
+services:
+  sqlitebrowser:
+    image: lscr.io/linuxserver/sqlitebrowser:latest
+    container_name: sqlitebrowser
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    ports:
+      - '3050:3000'
+      - '3051:3001'
+    shm_size: "1gb"
+    restart: unless-stopped

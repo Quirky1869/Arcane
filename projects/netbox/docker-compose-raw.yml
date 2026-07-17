@@ -1,17 +1,14 @@
-### Avec mkcert ###
+## Sans Traefik ###
 services:
   netbox:
     image: netboxcommunity/netbox:latest
     container_name: netbox
     restart: unless-stopped
-    networks:
-      - default
-      - traefik-net
     ports:
-      - "8000:8080"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+      - "8000:8080"
     environment: &netbox-env
       SUPERUSER_API_TOKEN: "${NETBOX_API_TOKEN}"
-      SUPERUSER_EMAIL: "admin@netbox.home.lab"
+      SUPERUSER_EMAIL: "admin@netbox.lab"
       SUPERUSER_NAME: "admin"
       SUPERUSER_PASSWORD: "${NETBOX_ADMIN_PASSWORD}"
       ALLOWED_HOSTS: "*"
@@ -31,15 +28,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.netbox.rule=Host(`netbox.home.lab`)"
-      - "traefik.http.routers.netbox.entrypoints=websecure"
-      - "traefik.http.routers.netbox.tls=true"
-      - "traefik.http.services.netbox.loadbalancer.server.port=8080"
- 
-  # Traite les tâches asynchrones (webhooks, rapports, scripts)
+
   netbox-worker:
     image: netboxcommunity/netbox:latest
     container_name: netbox-worker
@@ -52,10 +41,16 @@ services:
       - netbox-scripts:/opt/netbox/netbox/scripts
     depends_on:
       - netbox
- 
-  # Note : depuis NetBox v4.4.0, le housekeeping tourne automatiquement
-  # via le worker (RQ scheduler) — plus besoin de conteneur séparé.
- 
+
+  netbox-housekeeping:
+    image: netboxcommunity/netbox:latest
+    container_name: netbox-housekeeping
+    restart: unless-stopped
+    command: /opt/netbox/housekeeping.sh
+    environment: *netbox-env
+    depends_on:
+      - netbox
+
   postgres:
     image: postgres:15-alpine
     container_name: netbox-postgres
@@ -71,7 +66,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
- 
+
   redis:
     image: redis:7-alpine
     container_name: netbox-redis
@@ -83,7 +78,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
- 
+
   redis-cache:
     image: redis:7-alpine
     container_name: netbox-redis-cache
@@ -93,11 +88,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
- 
-networks:
-  traefik-net:
-    external: true
- 
+
 volumes:
   netbox-media:
   netbox-reports:

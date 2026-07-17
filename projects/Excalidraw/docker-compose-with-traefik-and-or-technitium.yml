@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   excalidraw:
     image: excalidraw/excalidraw:latest
@@ -12,11 +12,9 @@ services:
       - TZ=Europe/Paris
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.excalidraw.rule=Host(`excalidraw.home.lab`)"
-      - "traefik.http.routers.excalidraw.entrypoints=websecure"
-      - "traefik.http.routers.excalidraw.tls=true"
+      - "traefik.http.routers.excalidraw.rule=Host(`excalidraw.lab`)"
       - "traefik.http.services.excalidraw.loadbalancer.server.port=80"
- 
+
 networks:
   traefik-net:
     external: true

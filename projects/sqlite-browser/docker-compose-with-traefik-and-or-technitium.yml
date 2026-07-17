@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   sqlitebrowser:
     image: lscr.io/linuxserver/sqlitebrowser:latest
@@ -16,18 +16,16 @@ services:
       - ./data:/data
     ports:
       - '3050:3000'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
-      - '3051:3001'   # accès direct HTTPS de secours (certif auto-signé)
+      - '3051:3001'   # accès direct HTTPS de secours
     shm_size: "1gb"
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sqlitebrowser.rule=Host(`sqlitebrowser.home.lab`)"
-      - "traefik.http.routers.sqlitebrowser.entrypoints=websecure"
-      - "traefik.http.routers.sqlitebrowser.tls=true"
+      - "traefik.http.routers.sqlitebrowser.rule=Host(`sqlitebrowser.lab`)"
       - "traefik.http.services.sqlitebrowser.loadbalancer.server.port=3000"
- 
+
 networks:
   traefik-net:
     external: true
- 
-# Avec Traefik + mkcert : https://sqlitebrowser.home.lab
+
+ # Avec traefik aller sur https://sqlitebrowser.lab:3051

@@ -1,4 +1,6 @@
-### Avec mkcert ###
+## Avec Traefik ###
+ Note : seul le port 8006 (interface web) passe par Traefik.
+ Le port 5900 (VNC) reste en accès direct IP:port, ce n'est pas du HTTP.
 services:
   macos:
     image: dockurr/macos
@@ -26,11 +28,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.macos.rule=Host(`macos.home.lab`)"
-      - "traefik.http.routers.macos.entrypoints=websecure"
-      - "traefik.http.routers.macos.tls=true"
+      - "traefik.http.routers.macos.rule=Host(`macos.lab`)"
       - "traefik.http.services.macos.loadbalancer.server.port=8006"
- 
+
 networks:
   traefik-net:
     external: true

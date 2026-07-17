@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   beszel:
     image: henrygd/beszel:latest
@@ -7,7 +7,7 @@ services:
     networks:
       - traefik-net
     environment:
-      APP_URL: https://beszel.home.lab
+      APP_URL: http://beszel.lab
     ports:
       - 8090:8090   # accès direct de secours (IP:port), le temps de mettre en place Technitium
     volumes:
@@ -15,11 +15,9 @@ services:
       - ./beszel_socket:/beszel_socket
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.beszel.rule=Host(`beszel.home.lab`)"
-      - "traefik.http.routers.beszel.entrypoints=websecure"
-      - "traefik.http.routers.beszel.tls=true"
+      - "traefik.http.routers.beszel.rule=Host(`beszel.lab`)"
       - "traefik.http.services.beszel.loadbalancer.server.port=8090"
- 
+
 networks:
   traefik-net:
     external: true

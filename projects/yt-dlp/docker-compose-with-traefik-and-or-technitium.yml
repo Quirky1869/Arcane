@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   yt-dlp-webui:
     image: marcobaobao/yt-dlp-webui:latest
@@ -16,11 +16,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.yt-dlp-webui.rule=Host(`yt-dlp.home.lab`)"
-      - "traefik.http.routers.yt-dlp-webui.entrypoints=websecure"
-      - "traefik.http.routers.yt-dlp-webui.tls=true"
+      - "traefik.http.routers.yt-dlp-webui.rule=Host(`yt-dlp.lab`)"
       - "traefik.http.services.yt-dlp-webui.loadbalancer.server.port=3033"
- 
+
 networks:
   traefik-net:
     external: true

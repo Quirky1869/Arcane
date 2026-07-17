@@ -1,0 +1,27 @@
+## Sans Traefik ###
+services:
+  windows:
+    image: dockurr/windows
+    container_name: windows
+    environment:
+      VERSION: "11"
+      LANGUAGE: "French"
+      REGION: "fr-FR"
+      KEYBOARD: "fr"
+      USERNAME: "tonpseudo"
+      PASSWORD: "TonMotDePasse!"
+      RAM_SIZE: "4G"
+      CPU_CORES: "4"
+      DISK_SIZE: "64G"
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006
+      - 3389:3389/tcp
+    volumes:
+      - ./windows:/storage
+    restart: unless-stopped
+    stop_grace_period: 2m

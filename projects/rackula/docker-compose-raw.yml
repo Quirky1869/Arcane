@@ -1,0 +1,36 @@
+## Sans Traefik ###
+services:
+  rackula:
+    image: ghcr.io/rackulalives/rackula:persist
+    container_name: rackula
+    ports:
+      - "8754:8080"
+    environment:
+      - API_HOST=rackula-api
+      - API_PORT=3001
+      - RACKULA_LISTEN_PORT=8080
+      - RACKULA_AUTH_MODE=none
+    restart: unless-stopped
+    depends_on:
+      rackula-api:
+        condition: service_healthy
+
+  rackula-api:
+    image: ghcr.io/rackulalives/rackula-api:latest
+    container_name: rackula-api
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    environment:
+      - DATA_DIR=/data
+      - RACKULA_API_PORT=3001
+      - CORS_ORIGIN=http://rackula.lab
+      - RACKULA_AUTH_MODE=none
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3001/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+    expose:
+      - "3001"

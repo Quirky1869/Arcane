@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   stirling-pdf:
     image: stirlingtools/stirling-pdf:latest
@@ -21,11 +21,9 @@ services:
       - SYSTEM_MAXFILESIZE=100
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.stirling-pdf.rule=Host(`stirling.home.lab`)"
-      - "traefik.http.routers.stirling-pdf.entrypoints=websecure"
-      - "traefik.http.routers.stirling-pdf.tls=true"
+      - "traefik.http.routers.stirling-pdf.rule=Host(`stirling.lab`)"
       - "traefik.http.services.stirling-pdf.loadbalancer.server.port=8080"
- 
+
 networks:
   traefik-net:
     external: true

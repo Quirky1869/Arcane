@@ -1,0 +1,10 @@
+## Sans Traefik ###
+services:
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    restart: unless-stopped
+    ports:
+      - "9731:80"
+    environment:
+      - TZ=Europe/Paris

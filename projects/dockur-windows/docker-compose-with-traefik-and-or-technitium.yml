@@ -1,4 +1,6 @@
-### Avec mkcert ###
+## Avec Traefik ###
+ Note : seul le port 8006 (interface web) passe par Traefik.
+ Le port 3389 (RDP) reste en accès direct IP:port, car ce n'est pas du HTTP.
 services:
   windows:
     image: dockurr/windows
@@ -30,13 +32,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-net"
-      - "traefik.http.routers.windows.rule=Host(`windows.home.lab`)"
-      - "traefik.http.routers.windows.entrypoints=websecure"
-      - "traefik.http.routers.windows.tls=true"
+      - "traefik.http.routers.windows.rule=Host(`windows.lab`)"
       - "traefik.http.services.windows.loadbalancer.server.port=8006"
- 
+
 networks:
   traefik-net:
     external: true
-
-# RDP : xfreerdp /u:jason /p:P@ssw0rd! /v:windows.home.lab /cert:ignore /dynamic-resolution /scale-desktop:150 +clipboard

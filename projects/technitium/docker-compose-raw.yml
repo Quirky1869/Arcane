@@ -1,0 +1,16 @@
+## Sans Traefik ###
+services:
+  technitium:
+    image: technitium/dns-server:latest
+    container_name: technitium
+    hostname: dns-server
+    restart: unless-stopped
+    ports:
+      - "53:53/udp"     # Service DNS (le vrai coeur)
+      - "53:53/tcp"
+      - "5380:5380/tcp" # Interface web d'administration
+    environment:
+      - DNS_SERVER_DOMAIN=dns-server
+      - TZ=Europe/Paris
+    volumes:
+      - ./config:/etc/dns

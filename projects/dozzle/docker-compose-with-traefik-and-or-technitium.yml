@@ -1,4 +1,4 @@
-### Avec mkcert ###
+## Avec Traefik ###
 services:
   dozzle:
     image: amir20/dozzle:latest
@@ -12,12 +12,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dozzle.rule=Host(`dozzle.home.lab`)"
-      - "traefik.http.routers.dozzle.entrypoints=websecure"
-      - "traefik.http.routers.dozzle.tls=true"
+      - "traefik.http.routers.dozzle.rule=Host(`dozzle.lab`)"
       - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
- 
+
 networks:
   traefik-net:
     external: true
- 

@@ -8,7 +8,7 @@
 
 - Autres:
     - Arcane:
-        icon: mdi-docker
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/arcane.png
         href: https://arcane.home.lab
         description: Gestion des containers Docker
     - SQLite Browser:
@@ -74,7 +74,7 @@
         href: https://backup-calc.home.lab
         description: Calculateur de stratégie de sauvegarde
     - ConvertX:
-        icon: mdi-file-swap-outline
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png
         href: https://convertx.home.lab
         description: Conversion de fichiers
     - IT-Tools:
@@ -82,7 +82,7 @@
         href: https://it-tools.home.lab
         description: Boîte à outils IT
     - Purple Spells:
-        icon: mdi-flask-outline
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/swarmui.png
         href: https://purple-spells.home.lab
         description: Outils pentest
     - Stirling PDF:

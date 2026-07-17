@@ -1,32 +1,20 @@
+### Sans Traefik ###
 services:
   arcane:
     image: ghcr.io/getarcaneapp/arcane:latest
     container_name: arcane
-    networks:
-      - traefik-net
     ports:
-      - '3552:3552'   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+      - '3552:3552'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - arcane-data:/app/data
       - ${PROJECTS_PATH}:/app/data/projects # Changer la variable PROJECTS_PATH dans le .env, il doit ressembler à "/home/jason/docker"
     environment:
-      - APP_URL=https://arcane.home.lab
+      - APP_URL=http://arcane.lab
       - PUID=1000 # A changer si besoin (command : id -> result : uid)
       - PGID=1000 # A changer si besoin (command: id -> result : gid)
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - JWT_SECRET=${JWT_SECRET}
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.arcane.rule=Host(`arcane.home.lab`)"
-      - "traefik.http.routers.arcane.entrypoints=websecure"
-      - "traefik.http.routers.arcane.tls=true"
-      - "traefik.http.services.arcane.loadbalancer.server.port=3552"
- 
-networks:
-  traefik-net:
-    external: true
- 
 volumes:
   arcane-data:
