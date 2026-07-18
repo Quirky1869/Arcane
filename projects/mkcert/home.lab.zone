@@ -1,5 +1,5 @@
 $ORIGIN home.lab.
-@                     900       IN  SOA           dns-server. hostadmin 26 900 300 604800 900
+@                     900       IN  SOA           dns-server. hostadmin 27 900 300 604800 900
 @                     14400     IN  NS            dns-server.
 arcane                3600      IN  A             192.168.1.124
 backup-calc           3600      IN  A             192.168.1.124
@@ -20,5 +20,6 @@ sqlitebrowser         3600      IN  A             192.168.1.124
 stirling              3600      IN  A             192.168.1.124
 technitium            3600      IN  A             192.168.1.124
 traefik               3600      IN  A             192.168.1.124
+wg-easy               3600      IN  A             192.168.1.124
 windows               3600      IN  A             192.168.1.124
 yt-dlp                3600      IN  A             192.168.1.124
