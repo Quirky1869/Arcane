@@ -77,6 +77,10 @@
         icon: mdi-calculator-variant-outline
         href: https://backup-calc.home.lab
         description: Calculateur de stratégie de sauvegarde
+    - BentoPDF:
+        icon: bentopdf.png
+        href: https://bentopdf.home.lab
+        description: Éditeur de PDF   
     - ConvertX:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png
         href: https://convertx.home.lab

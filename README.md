@@ -1,10 +1,10 @@
-![arcane](./_images/arcane.png)
+![arcane](./_images/arcane.png)  
 
 ## 🇬🇧 English
 
 # Docker Stack
 
-This repository gathers all my Docker stacks (Arcane, Purple-Spells, backup-calculator, it-tools, sqlite-browser, etc.), managed and deployed via [Arcane](https://getarcane.app/)
+This repository gathers all my Docker stacks (Arcane, Purple-Spells, backup-calculator, it-tools, sqlite-browser, etc.), managed and deployed via [Arcane](https://getarcane.app/)  
 
 ## Structure
 
@@ -37,42 +37,42 @@ This repository gathers all my Docker stacks (Arcane, Purple-Spells, backup-calc
 > <b><u>Example:</u></b>
 > ```
 > mv projects/it-tools/docker-compose.yml projects/it-tools/docker-compose.yml.ori
->
+>  
 > mv projects/it-tools/docker-compose-raw.yml projects/it-tools/docker-compose.yml
 > ```
 
-___
+___  
 
 ### Without Traefik, Technitium, and mkcert
 
-**Files involved: docker-compose-raw.yml**
+**Files involved: docker-compose-raw.yml**  
 
-Deploy the infra by following this README.md
+Deploy the infra by following this README.md  
 
-Access to the container will be via your loopback IP address + port
+Access to the container will be via your loopback IP address + port  
 
-E.g.: http://127.0.0.1:9080
+E.g.: http://127.0.0.1:9080  
 
-___
+___  
 
 ### With Traefik
 
-**Files involved: docker-compose-with-traefik-and-or-technitium.yml**
+**Files involved: docker-compose-with-traefik-and-or-technitium.yml**  
 
 - Start the Traefik container first to create the network: `traefik-net`
 - For the desired containers, rename the file `docker-compose-with-traefik-and-or-technitium.yml` to `docker-compose.yml`
 - Edit your `/etc/hosts` file (you can follow the example further down in this README.md)
 - Start your containers (it-tools, convertX, dozzle, homepage, etc.)
 
-Access will then be via the name you set in the `/etc/hosts` file + TLD (over http)
+Access will then be via the name you set in the `/etc/hosts` file + TLD (over http)  
 
-E.g.: http://netbox.lab/
+E.g.: http://netbox.lab/  
 
-___
+___  
 
 ### With Traefik and Technitium
 
-**Files involved: docker-compose-with-traefik-and-or-technitium.yml**
+**Files involved: docker-compose-with-traefik-and-or-technitium.yml**  
 
 - Start the Traefik container first to create the network: `traefik-net`
 - For the desired containers, rename the file `docker-compose-with-traefik-and-or-technitium.yml` to `docker-compose.yml`
@@ -82,15 +82,15 @@ ___
 
 - To configure Technitium, please follow the "readme.md" procedure in the `projects/technitium` folder - [Procedure here](./projects/technitium/readme.md)
 
-Access will then be via the A records set in Technitium + TLD (over http) in the "lab" zone
+Access will then be via the A records set in Technitium + TLD (over http) in the "lab" zone  
 
-E.g.: http://beszel.lab/
+E.g.: http://beszel.lab/  
 
-___
+___  
 
 ### With Traefik, Technitium, and mkcert
 
-**Files involved: docker-compose.yml**
+**Files involved: docker-compose.yml**  
 
 > [!NOTE]
 > - This is how the infrastructure was originally designed: to work with a reverse proxy (Traefik), a DNS (Technitium), and a certificate generator (mkcert)
@@ -100,9 +100,9 @@ ___
 - Once done, the goal is to create a two-level domain and have our pages served over https, e.g.: https://convertx.home.lab
 - Please follow the [mkcert procedure](./projects/mkcert/readme.md)
 
-Access will then be via the A records set in Technitium + TLD (over https) in the "home.lab" zone
+Access will then be via the A records set in Technitium + TLD (over https) in the "home.lab" zone  
 
-E.g.: https://traefik.home.lab
+E.g.: https://traefik.home.lab  
 
 ## Installing Arcane
 
@@ -138,7 +138,7 @@ PROJECTS_PATH=</home/jason/docker>
 > [!TIP]
 > If you want to use `Technitium (self-hosted DNS)`, it is recommended to read the [readme.md](./projects/technitium/readme.md) specific to Technitium + start the Technitium container third, after Traefik (mandatory with Technitium) and Arcane
 
-If you do not want to use the `Technitium (self-hosted DNS)` container, you will need to fill in your `/etc/hosts` file
+If you do not want to use the `Technitium (self-hosted DNS)` container, you will need to fill in your `/etc/hosts` file  
 
 > [!TIP]
 > Windows equivalent:
@@ -163,6 +163,7 @@ Example `/etc/hosts`:
 127.0.0.1   netbox.lab
 127.0.0.1   purple-spells.lab
 127.0.0.1   rackula.lab
+127.0.0.1   scanopy.lab
 127.0.0.1   sqlitebrowser.lab
 127.0.0.1   stirling.lab
 127.0.0.1   traefik.lab
@@ -183,16 +184,16 @@ sudo docker-compose up -d
 ### 5. Access the interface
 
 Without Traefik:
-[localhost:3552](http://127.0.0.1:3552)
+[localhost:3552](http://127.0.0.1:3552)  
 
 With Traefik:
-[arcane.lab](http://arcane.lab)
+[arcane.lab](http://arcane.lab)  
 
-**Default credentials:**
+**Default credentials:**  
 - User: `arcane`
 - Password: `arcane-admin`
 
-⚠️ **You will be asked to change this password immediately on first login.** Do not leave it as default
+⚠️ **You will be asked to change this password immediately on first login.** Do not leave it as default  
 
 ## Arcane's docker-compose.yml without Traefik
 
@@ -228,7 +229,7 @@ sudo docker-compose pull
 sudo docker-compose up -d
 ```
 
-Or directly from the Arcane interface via the "Update available" button when a new version is available
+Or directly from the Arcane interface via the "Update available" button when a new version is available  
 
 ---
 
@@ -451,6 +452,7 @@ Exemple `/etc/hosts` :
 127.0.0.1   netbox.lab
 127.0.0.1   purple-spells.lab
 127.0.0.1   rackula.lab
+127.0.0.1   scanopy.lab
 127.0.0.1   sqlitebrowser.lab
 127.0.0.1   stirling.lab
 127.0.0.1   traefik.lab

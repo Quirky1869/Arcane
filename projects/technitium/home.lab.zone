@@ -1,8 +1,9 @@
 $ORIGIN home.lab.
-@                     900       IN  SOA           dns-server. hostadmin 27 900 300 604800 900
+@                     900       IN  SOA           dns-server. hostadmin 29 900 300 604800 900
 @                     14400     IN  NS            dns-server.
 arcane                3600      IN  A             192.168.1.124
 backup-calc           3600      IN  A             192.168.1.124
+bentopdf              3600      IN  A             192.168.1.124
 beszel                3600      IN  A             192.168.1.124
 convertx              3600      IN  A             192.168.1.124
 dozzle                3600      IN  A             192.168.1.124
@@ -16,6 +17,7 @@ macos                 3600      IN  A             192.168.1.124
 netbox                3600      IN  A             192.168.1.124
 purple-spells         3600      IN  A             192.168.1.124
 rackula               3600      IN  A             192.168.1.124
+scanopy               3600      IN  A             192.168.1.124
 sqlitebrowser         3600      IN  A             192.168.1.124
 stirling              3600      IN  A             192.168.1.124
 technitium            3600      IN  A             192.168.1.124

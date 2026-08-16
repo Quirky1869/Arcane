@@ -1,0 +1,23 @@
+### Avec Traefik ###
+services:
+  bentopdf:
+    image: ghcr.io/alam00000/bentopdf-simple:latest
+    container_name: bentopdf
+    restart: unless-stopped
+    networks:
+      - traefik-net
+    ports:
+      - "3033:8080"   # accès direct de secours (IP:port), le temps de mettre en place Technitium
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bentopdf.rule=Host(`bentopdf.lab`)"
+      - "traefik.http.services.bentopdf.loadbalancer.server.port=8080"
+
+networks:
+  traefik-net:
+    external: true
