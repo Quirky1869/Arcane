@@ -275,6 +275,7 @@ Here are the containers concerned:
 - Mkcert
 - Netbox
 - Rackula
+- Scanopy
 - Technitium
 - Yt-dlp
 
@@ -562,6 +563,7 @@ Voici les containers concernés :
 - Mkcert
 - Netbox
 - Rackula
+- Scanopy
 - Technitium
 - Yt-dlp
 
