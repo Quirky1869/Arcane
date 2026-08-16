@@ -35,6 +35,10 @@
         icon: netbox.png
         href: https://netbox.home.lab
         description: IPAM / documentation réseau
+    - Scanopy: 
+        icon: scanopy.png
+        href: https://scanopy.home.lab
+        description: Découverte automatique réseau
     - Technitium:
         icon: technitium.png
         href: https://technitium.home.lab
