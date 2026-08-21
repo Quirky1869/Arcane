@@ -30,4 +30,4 @@ networks:
   traefik-net:
     external: true
  
-# Avec Traefik + mkcert : https://sqlitebrowser.home.lab
+# Avec Traefik + mkcert : https://sqlitebrowser.home.lab:3051

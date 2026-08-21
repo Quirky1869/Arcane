@@ -28,4 +28,4 @@ networks:
   traefik-net:
     external: true
 
- # Avec traefik aller sur https://sqlitebrowser.lab:3051
+ # Avec traefik aller sur http://sqlitebrowser.lab:3051
